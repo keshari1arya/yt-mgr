@@ -4,10 +4,10 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   OneToOne,
-  Column,
   ManyToMany,
   JoinTable,
   OneToMany,
+  JoinColumn,
 } from 'typeorm';
 import { Expertise } from './expertise.entity';
 import { Project } from 'src/project/entities/project.entity';
@@ -23,25 +23,40 @@ export class Editor {
   // User relationship
   @AutoMap()
   @OneToOne(() => User, (user) => user.editor)
+  @JoinColumn({
+    foreignKeyConstraintName: 'FK_editor_user_id',
+  })
   user: User;
-
-  @AutoMap()
-  @Column()
-  userId: number;
 
   // Expertise relationship
   @AutoMap()
   @ManyToMany(() => Expertise)
-  @JoinTable()
+  @JoinTable({
+    name: 'editor_expertise',
+    joinColumn: {
+      name: 'editor_id',
+      referencedColumnName: 'id',
+    },
+    inverseJoinColumn: {
+      name: 'expertise_id',
+      referencedColumnName: 'id',
+    },
+  })
   expertises: Expertise[];
 
   // Project relationship
   @AutoMap()
   @OneToMany(() => Project, (project) => project.editor)
+  @JoinColumn({
+    foreignKeyConstraintName: 'FK_project_editor_id',
+  })
   projects: Project[];
 
   // Review relationship
   @AutoMap()
   @OneToMany(() => Review, (review) => review.editor)
+  @JoinColumn({
+    foreignKeyConstraintName: 'FK_review_editor_id',
+  })
   reviews: Review[];
 }

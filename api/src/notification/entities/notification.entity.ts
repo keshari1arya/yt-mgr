@@ -3,7 +3,7 @@ import { NotificationContentType } from 'src/shared/enums/notification-content.e
 import { NotificationType } from 'src/shared/enums/notifiction.enum';
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
-@Entity('notifications')
+@Entity()
 export class Notification {
   @PrimaryGeneratedColumn()
   @AutoMap()

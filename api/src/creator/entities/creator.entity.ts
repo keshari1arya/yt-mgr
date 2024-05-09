@@ -8,6 +8,7 @@ import {
   OneToOne,
   Column,
   OneToMany,
+  JoinColumn,
 } from 'typeorm';
 
 // Youtuber entity
@@ -20,11 +21,10 @@ export class Creator {
   // User relationship
   @AutoMap()
   @OneToOne(() => User, (user) => user.creator)
+  @JoinColumn({
+    foreignKeyConstraintName: 'FK_creator_user_id',
+  })
   user: User;
-
-  @AutoMap()
-  @Column()
-  userId: number;
 
   @AutoMap()
   @Column('simple-array')

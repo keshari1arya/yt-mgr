@@ -12,7 +12,7 @@ import {
   OneToOne,
 } from 'typeorm';
 
-@Entity('users')
+@Entity()
 export class User {
   @PrimaryGeneratedColumn()
   @AutoMap()
@@ -20,11 +20,12 @@ export class User {
 
   @Column({ nullable: true })
   @AutoMap()
-  @Unique('UQ_EMAIL', ['email'])
+  @Unique('UQ_USER_EMAIL', ['email'])
   email: string;
 
   @Column({ nullable: true })
   @AutoMap()
+  @Unique('UQ_USER_PHONE', ['phone'])
   phone: string;
 
   @Column({ default: '' })
